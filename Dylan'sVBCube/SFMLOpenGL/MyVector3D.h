@@ -53,7 +53,7 @@ public:
 	MyVector3D projection(const MyVector3D other)const;
 	// projection of other onto the current vector so answer will parralell to current vector.
 	MyVector3D rejection(const MyVector3D other)const;
-
+	MyVector3D scale(double radness, MyVector3D vectorz);
 
 
 	operator sf::Vector2i() { return sf::Vector2i(static_cast<int>(m_x), static_cast<int>(m_y)); };

@@ -41,6 +41,7 @@ typedef struct
 Vertexchips vertex1[6];
 GLubyte triangles[6];
 MyMatrix3 matrix[6];
+MyVector3D vectorList[6];
 /* Variable to hold the VBO identifier */
 GLuint vbo[1];
 GLuint index;
@@ -101,16 +102,24 @@ void Game::initialize()
 	vertex1[5].color[1] = 1.0f;
 	vertex1[5].color[2] = 1.0f;
 
+	for (int index = 0; index < 6; index++)
+	{
+		vectorList[index] = { vertex1[index].coordinate[0] , vertex1[index].coordinate[1],vertex1[index].coordinate[2] };
+		
 
+		
+	}
 	triangles[0] = 0;   triangles[1] = 1;   triangles[2] = 2;
 	triangles[3] = 3;   triangles[4] = 4;   triangles[5] = 5;
 
-	matrix[0] = { vertex1[0].coordinate[0],vertex1[0].coordinate[1],vertex1[0].coordinate[2],
-				vertex1[1].coordinate[0], vertex1[1].coordinate[1],vertex1[1].coordinate[2],
-				vertex1[2].coordinate[0],vertex1[2].coordinate[1],vertex1[2].coordinate[2] };
-	matrix[1] = { vertex1[3].coordinate[0],vertex1[3].coordinate[1],vertex1[3].coordinate[2],
-		vertex1[4].coordinate[0], vertex1[4].coordinate[1],vertex1[4].coordinate[2],
-		vertex1[5].coordinate[0],vertex1[5].coordinate[1],vertex1[5].coordinate[2] };
+	matrix[0] = { vectorList[0].X(),vectorList[0].Y(),vectorList[0].Z(),
+				vectorList[1].X(),vectorList[1].Y(),vectorList[1].Z(),
+				vectorList[2].X(),vectorList[2].Y(),vectorList[2].Z() };
+	matrix[1] = { vectorList[3].X(),vectorList[3].Y(),vectorList[3].Z() ,
+		vectorList[4].X(),vectorList[4].Y(),vectorList[4].Z(),
+		vectorList[5].X(),vectorList[5].Y(),vectorList[5].Z()};
+
+	
 	/* Create a new VBO using VBO id */
 	glGenBuffers(1, vbo);
 
@@ -170,12 +179,27 @@ void Game::update()
 		}
 	}
 
-	//Change vertex data
-	vertex1[0].coordinate[0] += -0.0001f;
-	vertex1[0].coordinate[1] += -0.0001f;
-	vertex1[0].coordinate[2] += -0.0001f;
-	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+	{
+		for (int index = 0; index < 6; index++)
+		{
+			vectorList[index] = matrix[index].translation2(vectorList[index]);
+			vertex1[index].coordinate[0] = vectorList[index].X();
+			vertex1[index].coordinate[1] = vectorList[index].Y();
+			vertex1[index].coordinate[2] = vectorList[index].Z();
+		}
 
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		{
+			for (int index = 0; index < 6; index++)
+			{
+				vectorList[index] = vectorList[index].scale(scaler, vectorList[index]);
+				vertex1[index].coordinate[0] = vectorList[index].X();
+				vertex1[index].coordinate[1] = vectorList[index].Y();
+				vertex1[index].coordinate[2] = vectorList[index].Z();
+			}
+		}
+	}
 	cout << "Update up" << endl;
 }
 

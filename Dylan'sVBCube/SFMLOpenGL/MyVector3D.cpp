@@ -361,3 +361,11 @@ MyVector3D MyVector3D::rejection(const MyVector3D other) const
 	return other - projection(other);
 }
 
+MyVector3D MyVector3D::scale(double radness, MyVector3D vectorz)
+{
+	m_x += vectorz.X() * radness;
+	m_y += vectorz.Y() * radness;
+	m_z += vectorz.Z() * radness;
+	return MyVector3D(m_x,m_y,m_z);
+}
+

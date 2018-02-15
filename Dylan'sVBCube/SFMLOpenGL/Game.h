@@ -23,7 +23,7 @@ private:
 	void update();
 	void render();
 	void unload();
-
+	double scaler = 1.000005;
 	Clock clock;
 	Time elapsed;
 

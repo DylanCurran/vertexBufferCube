@@ -321,9 +321,9 @@ MyMatrix3 MyMatrix3::translation(MyMatrix3 displacement)
 
 MyVector3D MyMatrix3::translation2(MyVector3D displacement)
 {
-	double m11 = displacement.X() + 0.05;
-	double m12 = displacement.Y() + 0.05;
-	double m13 = displacement.Z() + 0.05;
+	double m11 = displacement.X() + 0.0005;
+	double m12 = displacement.Y() + 0.0005;
+	double m13 = displacement.Z() + 0.0005;
 	return MyVector3D(m11,m12,m13);
 }
 
